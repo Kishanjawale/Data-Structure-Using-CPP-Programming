@@ -3,7 +3,7 @@ using namespace std;
 
 const int EMPTY_QUEUE= -1; 
 const int ELEMENT_NOT_FOUND=-2;
-
+const int QUEUE_IS_NOT_EMPTY=1;
 
 struct node
 {
@@ -27,6 +27,8 @@ class QueueImplementation
         int  XEnqueue(int iNO);
         int XDequeue();  
         int XGetFirstElement(); 
+        int XGetLastElement();
+        int XIsEmpty();
 };
 
 QueueImplementation::QueueImplementation()
@@ -76,7 +78,6 @@ int QueueImplementation:: XGetFirstElement()
 
     if (Head == NULL)
     {
-        cout << "Queue is already empty.." << endl;
         return EMPTY_QUEUE;
     }
     else
@@ -92,7 +93,6 @@ int QueueImplementation::XDequeue()
 {
     if (Head == NULL)
     {
-        cout << "Queue is already empty.." << endl;
         return EMPTY_QUEUE;
     }
     else if (Head->next == NULL)
@@ -114,35 +114,34 @@ int QueueImplementation::XDequeue()
     count--;
 }
 
-int main()
+
+
+int QueueImplementation::XGetLastElement()
 {
-    QueueImplementation QI;
-    int count = QI.CountNodes();
-
-    QI.XEnqueue(300);
-    QI.XEnqueue(200);
-    QI.XEnqueue(150);
-    QI.XEnqueue(100);
-    QI.XEnqueue(400);
-    QI.XEnqueue(500);
-    QI.XEnqueue(600);
-
-    count = QI.CountNodes();
-    cout << "Number of nodes: " << count << endl;
-    QI.DisplayQueue();
-
-    cout << endl;
-
-    QI.XDequeue();
-    QI.XDequeue();
-
-    count = QI.CountNodes();
-    cout << "Number of nodes: " << count << endl;
-    QI.DisplayQueue();
-
-    int inO;
-    inO=QI.XGetFirstElement();
-    cout<<endl<<"FIRST NUMBER IS:"<<inO;
-
-    return 0;
+    if (Head == NULL)
+    {
+        return EMPTY_QUEUE;
+    }
+    else
+    {
+        PNODE temp = Head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        int iLastElement=temp->data;
+        return iLastElement;
+    }
+    return ELEMENT_NOT_FOUND;
 }
+
+
+
+int QueueImplementation:: XIsEmpty()
+{
+   if (Head == NULL)
+    {
+        return EMPTY_QUEUE;
+    }    
+    return QUEUE_IS_NOT_EMPTY;
+} 
